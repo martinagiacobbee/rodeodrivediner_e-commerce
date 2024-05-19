@@ -18,9 +18,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     boolean existsByProdId(int id);
 
-    @Query(value = "SELECT * "+
-            "FROM products pr "+
-            "WHERE pr.name LIKE :name OR :name IS NULL",nativeQuery = true)
-    List<Product> findByName(String nome);
+    @Query("SELECT p " +
+            "FROM Product p " +
+            "WHERE (p.name LIKE ?1 OR ?1 IS NULL) "
+            )
+    List<Product> findByName(String name);
 
 }
