@@ -13,7 +13,7 @@ public class ProductInCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="prodInCart_id")
-    private int id;
+    private int prodInCartId;
 
     @Basic
     @Column(name="quantity",nullable = true)
@@ -32,6 +32,6 @@ public class ProductInCart {
         if(this==o) return true;
         if(!(o instanceof ProductInCart)) return false;
         ProductInCart c = (ProductInCart) o;
-        return c.id==id;
+        return c.prodInCartId==prodInCartId;
     }
 }

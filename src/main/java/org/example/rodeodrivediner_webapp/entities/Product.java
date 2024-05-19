@@ -22,7 +22,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="prod_id")
-    private int id;
+    private int prodId;
 
     @NotNull
     @Column(name="name")
@@ -35,6 +35,10 @@ public class Product {
     @NotNull
     @Column(name="price")
     private double price;
+
+    @NotNull
+    @Column(name="quantity")
+    private int quantity;
 
 
     @OneToMany(targetEntity = ProductInCart.class, mappedBy="products",cascade= CascadeType.MERGE)

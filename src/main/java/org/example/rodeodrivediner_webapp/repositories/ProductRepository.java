@@ -14,7 +14,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Page<Product> findByNameContainingIgnoreCase(String productName, Pageable pageable); //ignoreCase lets the query be case-insensitive
 
-    boolean existsById(int id);
+    Product findByProdId(int id);
+
+    boolean existsByProdId(int id);
 
     @Query(value = "SELECT * "+
             "FROM products pr "+
