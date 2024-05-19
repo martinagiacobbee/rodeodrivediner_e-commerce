@@ -10,12 +10,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    Page<Product> findByNameContainingIgnoreCase(String productName, Pageable pageable); //ignoreCase lets the query be case insensitive
+    Page<Product> findByNameContainingIgnoreCase(String productName, Pageable pageable); //ignoreCase lets the query be case-insensitive
+
+    boolean existsById(int id);
 
     @Query(value = "SELECT * "+
             "FROM products pr "+
             "WHERE pr.name LIKE :name OR :name IS NULL",nativeQuery = true)
     List<Product> findByName(String nome);
+
 }
