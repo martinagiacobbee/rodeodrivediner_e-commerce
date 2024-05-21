@@ -16,7 +16,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="cust_id")
+    @Column(name="cust_id", nullable=false)
     private int custId;
 
     @Column(name="first_name")
@@ -31,17 +31,8 @@ public class Customer {
     @Column(name="password")
     private String password;
 
-    @OneToOne
+    @OneToMany(mappedBy = "cust", cascade = CascadeType.MERGE)
     @JsonIgnore
-    @ToString.Exclude
-    @JoinColumn(name="cart")
-    private Cart cart;
+    private List<Cart> carts;
 
-    @OneToMany(mappedBy="customer", cascade=CascadeType.MERGE)
-    @JsonIgnore
-    private List<Purchase> purchases;
-
-    public Cart getCart() {
-        return cart;
-    }
 }

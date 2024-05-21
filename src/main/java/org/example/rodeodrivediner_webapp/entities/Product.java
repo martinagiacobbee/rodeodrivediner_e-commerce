@@ -21,7 +21,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="prod_id")
+    @Column(name="prod_id", nullable = false)
     private int prodId;
 
     @NotNull
@@ -34,16 +34,20 @@ public class Product {
 
     @NotNull
     @Column(name="price")
-    private double price;
+    private float price;
 
-    @NotNull
+
     @Column(name="quantity")
     private int quantity;
 
+    @Version
+    @Column(name = "version", nullable = false)
+    @JsonIgnore
+    private long version;
 
-    @OneToMany(targetEntity = ProductInCart.class, mappedBy="products",cascade= CascadeType.MERGE)
+    @OneToMany(targetEntity = ProductInCart.class, mappedBy="product",cascade= CascadeType.MERGE)
     @ToString.Exclude
     @JsonIgnore
-    private List<ProductInCart> prodottoInCart;
+    private List<ProductInCart> productsInCart;
 
 }

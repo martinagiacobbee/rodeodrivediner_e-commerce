@@ -1,5 +1,6 @@
 package org.example.rodeodrivediner_webapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -12,20 +13,27 @@ public class ProductInCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="prodInCart_id")
+    @Column(name="prodInCart_Id", nullable = false)
     private int prodInCartId;
 
+    @ManyToOne
+    @JoinColumn(name = "cart")
+    @JsonIgnore
+    @ToString.Exclude
+    private Cart cart;
+
     @Basic
-    @Column(name="quantity",nullable = true)
+    @Column(name = "quantity", nullable = true)
     private int quantity;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="cart")
-    private Cart cart;
+    @JoinColumn(name = "product")
+    private Product product;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="products")
-    private Product products;
+    @Basic
+    @Column(name = "price")
+    private float price;
+
 
     @Override
     public boolean equals(Object o){

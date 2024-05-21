@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,13 +21,17 @@ public class Cart {
     @Column(name="cart_id",nullable = false)
     private Integer cartId;
 
-    @OneToOne
-    @JoinColumn(name="customer")
-    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "cust")
+    private Customer cust;
 
-    @OneToMany(targetEntity = ProductInCart.class, mappedBy = "cart",cascade = CascadeType.MERGE)
-    @ToString.Exclude
-    @JsonIgnore
-    private List<ProductInCart> prodottiInCart=new ArrayList<>();
+    @Basic
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "purchase_time")
+    private Date purchaseTime;
+
+    @OneToMany(mappedBy="cart",cascade=CascadeType.MERGE)
+    private List<ProductInCart> productsInCart=new ArrayList<>();
 
 }

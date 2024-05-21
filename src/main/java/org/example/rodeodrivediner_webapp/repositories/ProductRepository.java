@@ -13,15 +13,13 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Page<Product> findByNameContainingIgnoreCase(String productName, Pageable pageable); //ignoreCase lets the query be case-insensitive
-
-    Product findByProdId(int id);
-
-    boolean existsByProdId(int id);
+    boolean existsByName(String name);
+    List<Product> findByNameContaining(String name);
 
     @Query("SELECT p " +
             "FROM Product p " +
             "WHERE (p.name LIKE ?1 OR ?1 IS NULL) "
             )
-    List<Product> findByName(String name);
+    List<Product> findProductByName(String name);
 
 }

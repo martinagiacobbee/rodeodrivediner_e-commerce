@@ -6,9 +6,11 @@ import org.example.rodeodrivediner_webapp.entities.ProductInCart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductInCartRepository extends JpaRepository<ProductInCart, Integer> {
-    ProductInCart findByCart(Cart cart);
-    ProductInCart findByProducts(Product prodotto);
-    boolean existsByProducts(Product prodotto);
+
+    List<ProductInCart> findByProduct(Product prodotto);
+    boolean existsByProduct(Product prodotto);
 }
